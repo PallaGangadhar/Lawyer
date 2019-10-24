@@ -5,13 +5,16 @@ from django.shortcuts import render,HttpResponse,HttpResponseRedirect,reverse
 from lawyer.forms import LoginForm,RegisterForm,LawyerForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
-from lawyer.models import State
+from .models import State, Practice_area
 import csv
 # from lawyer.decorators import check_recaptcha
 
 # Create your views here.
 def index(request):
-    return render(request,'client/index.html')
+    practice = Practice_area.objects.all()
+    state = State.objects.all()
+    context_dict = {'practice':practice,'state':state}
+    return render(request,'client/index.html', context_dict)
 
 
 def user_login(request):
@@ -96,3 +99,4 @@ def state_data():
     
     return data
 state_data()
+

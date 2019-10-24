@@ -45,14 +45,22 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">By Practice Area</a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{% url 'view_lawyers' %}?practice_area=Animal Law">Animal Law</a></li>
-                                <li><a class="dropdown-item" href="{% url 'view_lawyers' %}?practice_area=Bankrupty and Debt">Bankrupty and Debt</a></li>
+                                {% for p in practice%}
+                                <li><a class="dropdown-item" href="{% url 'view_lawyers' %}?practice_area={{p.practice_area}}">{{p.practice_area}}</a></li>
+                                <!-- <li><a class="dropdown-item" href="{% url 'view_lawyers' %}?practice_area=Bankrupty and Debt">Bankrupty and Debt</a></li>
                                 <li><a class="dropdown-item" href="{% url 'view_lawyers' %}?practice_area=Bussiness">Bussiness</a></li>
                                 <li><a class="dropdown-item" href="{% url 'view_lawyers' %}?practice_area=Employement and Labour">Employement & Labour</a></li>
-                                <li><a class="dropdown-item" href="{% url 'view_lawyers' %}?practice_area=FAMILY">FAMILY</a></li>
+                                <li><a class="dropdown-item" href="{% url 'view_lawyers' %}?practice_area=FAMILY">FAMILY</a></li> -->
+                                {% endfor %}
                             </ul>
                         </li>
-                        <li><a class="dropdown-item" href="#">By State</a></li>
+                        <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">By State</a>
+                            <ul class="dropdown-menu">
+                                {% for s in state %}
+                                <li><a class="dropdown-item" href="{% url 'view_lawyers' %}?state={{s.state_name}}">{{s.state_name}}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
                     </ul>
                 </li>
                 {% if user.is_authenticated %}

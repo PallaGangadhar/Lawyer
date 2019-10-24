@@ -13,7 +13,7 @@ class State(models.Model):
 
 
 class Lawyer(models.Model):
-    STATE = (
+    YEAR = (
         ('2019', '2019'),
         ('2018', '2018'),
         ('2017', '2017'),
@@ -46,9 +46,30 @@ class Lawyer(models.Model):
     phone_number = models.CharField(max_length=128,blank=True,null=True)
     license_in = models.CharField(max_length=128,blank=True,null=True)
     license_id = models.CharField(max_length=128,blank=True,null=True)
-    year_admitted = models.CharField(choices=STATE,max_length=128,blank=True,null=True)
+    year_admitted = models.CharField(choices=YEAR,max_length=128,blank=True,null=True)
     profile_image = models.ImageField(upload_to='profile_images',blank=True)
     
     def __str__(self):
         return self.user.username
+    class Meta:
+        verbose_name_plural = 'Lawyers'
 
+class Practice_area(models.Model):
+    practice_area = models.CharField(max_length=200, blank='false')
+
+    class Meta:
+        verbose_name_plural = 'Practice_area'
+
+    def __str__(self):
+        return self.practice_area
+    
+class Sub_practice_area(models.Model):
+    sub_practice_area = models.CharField(max_length=200, blank='false')
+    practice = models.ForeignKey(Practice_area, on_delete=models.CASCADE)
+    city = models.CharField(max_length=200, blank='false')
+    lawyer = models.ForeignKey(Lawyer,on_delete=models.CASCADE)
+    def __str__(self):
+        return self.sub_practice_area
+
+    class Meta:
+        verbose_name_plural = 'Sub_practice_area'
